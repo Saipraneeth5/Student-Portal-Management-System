@@ -31,11 +31,8 @@ Problem Reporting: Allows students to report and track issues.
 
 │── app.py         # Flask app
 
-https://drive.google.com/file/d/1m8uNvOdRGafdFq0vSXjSDrZ-8qIdDiVr/view?usp=drive_link
-
 │── problems.json  # JSON storage for reported problems
-
 
 │── README.md      # Documentation
 
-
+https://drive.google.com/file/d/1m8uNvOdRGafdFq0vSXjSDrZ-8qIdDiVr/view?usp=drive_link
