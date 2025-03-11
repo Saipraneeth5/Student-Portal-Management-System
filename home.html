@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .logo-container img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anurag University Student Portal</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .header {
+            background-color: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card-image {
+            height: 160px;
+            background-color: #3f51b5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            margin: 0 0 0.5rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        
+        .card-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .card-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #3f51b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        
+        .card-button:hover {
+            background-color: #303f9f;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: #1a237e;
+            color: white;
+            margin-top: 2rem;
+        }
+
+        .icon {
+            font-size: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="logo-container">
+        <img src="/static/images/logo.jpg" alt="Anurag University Logo">
+    </a>
+    <div class="header">
+        <h1>Anurag University Student Portal</h1>
+        <p>All your student tools in one place</p>
+    </div>
+    
+    <div class="container">
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-image">
+                    <div class="icon">📊</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Backlog Calculator</h2>
+                    <p class="card-description">Calculate the credits you need to clear your backlogs and get promoted to the next semester. Find the optimal combination of subjects to pass.</p>
+                    <a href="/backlogs" class="card-button">Calculate Backlogs</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image">
+                    <div class="icon">📅</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Attendance Calculator</h2>
+                    <p class="card-description">Find out how many more classes you need to attend to maintain the required attendance percentage. Plan your semester attendance effectively.</p>
+                    <a href="/attendance" class="card-button">Calculate Attendance</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image">
+                    <div class="icon">📶</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Wi-Fi Password Map</h2>
+                    <p class="card-description">Access the Wi-Fi passwords for different blocks across the campus. Stay connected wherever you are in the university.</p>
+                    <a href="/wifi" class="card-button">View Wi-Fi Map</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-image">
+                    <div class="icon">🔧</div>
+                </div>
+                <div class="card-content">
+                    <h2 class="card-title">Report a Problem</h2>
+                    <p class="card-description">Submit issues or concerns you have about the university facilities, courses, or other matters. Track already solved problems.</p>
+                    <a href="/problems" class="card-button">Report Problem</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2025 Anurag University Student Portal</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .logo-container img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anurag University Wi-Fi Login</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+
+        .header {
+            background-color: #1a237e;
+            color: white;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #loginForm {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        #loginForm input {
+            margin: 10px;
+            padding: 12px;
+            font-size: 16px;
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #loginForm button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #loginForm button:hover {
+            background-color: #303f9f;
+        }
+
+        #wifiBlocks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .wifiBlock {
+            width: 120px;
+            height: 120px;
+            background-color: #3f51b5;
+            color: white;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .wifiBlock:hover {
+            transform: scale(1.1);
+        }
+
+        .password {
+            margin: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #757575;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #616161;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="logo-container">
+        <img src="/static/images/logo.jpg" alt="Anurag University Logo">
+    </a>
+    <div class="header">
+        <h1>Anurag University Wi-Fi Access</h1>
+    </div>
+
+    <div class="container">
+        {% if session['logged_in'] %}
+            <h2>Select Block to View Wi-Fi Password</h2>
+            <div id="wifiBlocks">
+                <div class="wifiBlock" onclick="revealPassword('blockA')">Block A</div>
+                <div class="wifiBlock" onclick="revealPassword('blockB')">Block B</div>
+                <div class="wifiBlock" onclick="revealPassword('blockC')">Block C</div>
+                <div class="wifiBlock" onclick="revealPassword('blockD')">Block D</div>
+                <div class="wifiBlock" onclick="revealPassword('blockE')">Block E</div>
+                <div class="wifiBlock" onclick="revealPassword('blockF')">Block F</div>
+                <div class="wifiBlock" onclick="revealPassword('blockG')">Block G</div>
+                <div class="wifiBlock" onclick="revealPassword('blockH')">Block H</div>
+            </div>
+
+            <div id="passwordContainer">
+                <div id="blockA" class="password" style="display: none;">Wi-Fi Password: Ablock123</div>
+                <div id="blockB" class="password" style="display: none;">Wi-Fi Password: Bblock456</div>
+                <div id="blockC" class="password" style="display: none;">Wi-Fi Password: Cblock789</div>
+                <div id="blockD" class="password" style="display: none;">Wi-Fi Password: Dblock000</div>
+                <div id="blockE" class="password" style="display: none;">Wi-Fi Password: Eblock234</div>
+                <div id="blockF" class="password" style="display: none;">Wi-Fi Password: Fblock567</div>
+                <div id="blockG" class="password" style="display: none;">Wi-Fi Password: Gblock890</div>
+                <div id="blockH" class="password" style="display: none;">Wi-Fi Password: Hblock012</div>
+            </div>
+
+            <button class="back-button" onclick="logout()">Logout</button>
+        {% else %}
+            <div id="loginForm">
+                <h2>Login to View Wi-Fi Passwords</h2>
+                <form action="/wifi/login" method="POST">
+                    <input type="text" name="username" placeholder="Enter Username" required>
+                    <input type="password" name="password" placeholder="Enter Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul style="list-style: none; padding: 0;">
+                        {% for message in messages %}
+                            <li style="color: red; margin-top: 10px;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+            </div>
+        {% endif %}
+        
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+
+    <script>
+        function revealPassword(blockId) {
+            const blockElement = document.getElementById(blockId);
+            blockElement.style.display = blockElement.style.display === "none" ? "block" : "none";
+        }
+
+        function logout() {
+            window.location.href = "/wifi/logout";
+        }
+    </script>
+</body>
+</html>

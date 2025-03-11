@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .logo-container img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Problem</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            padding: 0;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 25px;
+        }
+
+        h1, h2 {
+            color: #303f9f;
+            text-align: center;
+        }
+
+        .options {
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #3f51b5;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #303f9f;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .unsolved-item {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffa000;
+        }
+
+        .solved-item {
+            background-color: #e8f5e9;
+            border-left: 4px solid #66bb6a;
+        }
+
+        li p {
+            margin: 0 0 10px 0;
+        }
+
+        .solve-link {
+            padding: 6px 12px;
+            background-color: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: el4px;
+            font-size: 14px;
+            display: inline-block;
+        }
+
+        .solve-link:hover {
+            background-color: #388e3c;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #757575;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #616161;
+        }
+
+        .problem-count {
+            display: inline-block;
+            background-color: #3f51b5;
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="logo-container">
+        <img src="/static/images/logo.jpg" alt="Anurag University Logo">
+    </a>
+    <div class="header">
+        <h1>College Problem Reporting System</h1>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="options">
+                <h2>Report a Problem</h2>
+                <form action="/problems/report" method="POST">
+                    <textarea name="problemText" placeholder="Describe the problem in detail..." required></textarea>
+                    <button type="submit">Submit Report</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div id="viewProblems">
+                <h2>Unsolved Problems <span class="problem-count">{{ problems|length }}</span></h2>
+                <ul>
+                    {% if problems %}
+                        {% for problem in problems %}
+                            <li class="unsolved-item">
+                                <p>{{ problem.text }}</p>
+                                <a href="{{ url_for('solve_problem', index=loop.index0) }}" class="solve-link">Mark as Solved</a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li style="text-align: center; background-color: #f5f5f5; padding: 15px;">
+                            No unsolved problems at the moment.
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <div id="viewSolvedProblems">
+                <h2>Solved Problems <span class="problem-count">{{ solved_problems|length }}</span></h2>
+                <ul>
+                    {% if solved_problems %}
+                        {% for problem in solved_problems %}
+                            <li class="solved-item">
+                                <p>{{ problem.text }}</p>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li style="text-align: center; background-color: #f5f5f5; padding: 15px;">
+                            No solved problems yet.
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>

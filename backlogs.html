@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .logo-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.1);
+        }
+        
+        .logo-container img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backlogs Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #303f9f;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            width: 60%;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            padding: 12px 20px;
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #303f9f;
+        }
+
+        .result {
+            margin-top: 25px;
+        }
+
+        .failed-subjects {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .failed-subjects li {
+            background: #ffebee;
+            margin: 8px 0;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #e57373;
+        }
+
+        .credits {
+            font-weight: bold;
+            color: #333;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+
+        .error {
+            color: #d32f2f;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .combinations {
+            margin-top: 30px;
+        }
+
+        .combinations h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .combinations ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .combinations li {
+            background: #e8f5e9;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #66bb6a;
+        }
+
+        .message {
+            color: #2e7d32;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2em;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #757575;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #616161;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="logo-container">
+        <img src="/static/images/logo.jpg" alt="Anurag University Logo">
+    </a>
+    <div class="header">
+        <h1>Backlogs Calculator</h1>
+    </div>
+
+    <div class="container">
+        <h2>Enter Your Roll Number</h2>
+        <form method="POST">
+            <input type="text" name="roll_number" placeholder="Roll Number" required>
+            <input type="submit" value="Submit">
+        </form>
+        <div class="result">
+            {% if results %}
+                <h2>Results for Roll Number: {{ roll_number }}</h2>
+                <h3>Failed Subjects:</h3>
+                <ul class="failed-subjects">
+                    {% for subject in failed_subjects %}
+                        <li>{{ subject[0] }} (Credits: {{ subject[1] }})</li>
+                    {% endfor %}
+                </ul>
+                <div class="credits">Total Credits: {{ total_credits }}</div>
+                <div class="credits">Total Credits You Have: {{ total_credits_you_have }}</div>
+                <div class="credits">Credits Needed to Promote: {{ credits_needed_to_promote }}</div>
+                <div class="credits">Credits You Need to Promote: {{ credits_you_needed_to_promote }}</div>
+
+                <div class="combinations">
+                    {% if credits_you_needed_to_promote > 0 %}
+                        <h3>Possible Combinations of Subjects to Secure Needed Credits:</h3>
+                        <ul>
+                            {% for combo in combinations_needed %}
+                                <li>
+                                    {% for subject in combo %}
+                                    {{ subject[0] }} (Credits: {{ subject[1] }}){% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="message">{{ message }}</div>
+                    {% endif %}
+                </div>
+            {% elif roll_number %}
+                <h3 class="error">No results found or an error occurred.</h3>
+            {% endif %}
+        </div>
+        
+        <a href="/" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>
